@@ -5,7 +5,6 @@ import SignupPage from './pages/SignupPage';
 import { positions, Provider } from 'react-alert';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-
 const options = {
   timeout: 5000,
   position: positions.BOTTOM_LEFT,
