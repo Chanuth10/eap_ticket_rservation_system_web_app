@@ -1,9 +1,9 @@
 import Login from "../features/auth/components/Login";
 const LoginPage = () => {
     return (
-        <div>
+        <section>
             <Login></Login>
-        </div>
+        </section>
     );
 }
 
