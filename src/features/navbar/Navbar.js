@@ -5,7 +5,7 @@ import "./navbar.css";
 
 const nav__links = [
   {
-    path: '/home',
+    path: '/',
     display: 'Home'
   },
   {
@@ -13,7 +13,7 @@ const nav__links = [
     display: 'About'
   },
   {
-    path: '/tours',
+    path: '/booking',
     display: 'Booking'
   },
 ]
