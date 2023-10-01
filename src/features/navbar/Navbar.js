@@ -1,6 +1,7 @@
 import React from 'react'
-import { Button, Container, Row, Col, Form } from 'react-bootstrap'
+import { Button, Container, Row } from 'react-bootstrap'
 import { NavLink, Link } from 'react-router-dom'
+import loginImg from '../../assets/images/logo.jpg'
 import "./navbar.css";
 
 const nav__links = [
@@ -25,7 +26,7 @@ const Navbar = () => {
         <Row>
           <div className="nav__wrapper d-flex align-items-center justify-content-between">
             <div className="logo">
-              <img src="" alt=''></img>
+              <img src={loginImg} alt='' ></img>
             </div>
 
             <div className="navigation">
@@ -41,8 +42,10 @@ const Navbar = () => {
             </div>
             <div className='nav__right d-flex align-items-center gap-4'>
               <div className='nav__btns d-flex align-items-center gap-4'>
-                <Button className='btn secondary__btn'><Link to='/login'></Link>Login</Button>
-                <Button className='btn primary__btn'><Link to='/register'></Link>Register</Button>
+                <Button className='btn secondary__btn'><Link to='/login'>Login</Link></Button>
+                <Button className='btn primary__btn'>
+                    <Link to='/signup'>SignUp</Link>
+                </Button>
               </div>
 
               <span className='mobile__menu'>
