@@ -26,7 +26,7 @@ export const login = (NIC, password) => async (dispatch) => {
     );
     dispatch({ type: LOGIN_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: LOGIN_FAIL, payload: error.response });
+    dispatch({ type: LOGIN_FAIL, payload: error.response.data.title });
   }
 };
 

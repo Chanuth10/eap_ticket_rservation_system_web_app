@@ -17,7 +17,7 @@ const Login = () => {
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
   );
-
+  console.log(isAuthenticated);
   const [loginNIC, setLoginNIC] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -66,6 +66,7 @@ const Login = () => {
         </Col>
       </Row>
     </Container>
+    
   )
 }
 
