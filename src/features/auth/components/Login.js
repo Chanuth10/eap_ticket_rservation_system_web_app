@@ -31,10 +31,6 @@ const Login = () => {
       toast.error(error);
       dispatch(clearErrors());
     }
-
-    if (isAuthenticated) {
-      navigate("/");
-    }
   }, [dispatch, error, alert, isAuthenticated]);
 
   return (

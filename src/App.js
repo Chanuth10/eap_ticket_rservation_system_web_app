@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import BackOfficeHome from './pages/BackOfficeHome';
 import UserProfilePage from './pages/UserProfilePage';
 import PageNotFound from './pages/404';
+import Protected from './features/auth/components/Protected';
+import ProtectedAdmin from './features/auth/components/ProtectedAdmin';
 
 const options = {
   timeout: 5000,
@@ -25,19 +27,27 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Home></Home>,
+    element: (
+      <Protected>
+        <Home></Home>
+      </Protected>
+    ),
   },
   {
     path: '/backOffice',
-    element: <BackOfficeHome></BackOfficeHome>,
+    element: (
+      <ProtectedAdmin>
+        <BackOfficeHome></BackOfficeHome>
+      </ProtectedAdmin>
+    ),
   },
   {
     path: '/profile',
-    element: <UserProfilePage></UserProfilePage>,
-  },
-  {
-    path: '/signup',
-    element: <SignupPage></SignupPage>,
+    element: (
+      <Protected>
+        <UserProfilePage></UserProfilePage>
+      </Protected>
+    ),
   },
   {
     path: '*',

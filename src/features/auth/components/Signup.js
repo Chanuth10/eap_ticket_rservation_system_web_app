@@ -36,7 +36,7 @@ const Login = () => {
     }
 
     if (isAuthenticated) {
-      navigate("/");
+      navigate("/login");
     }
   }, [dispatch, error, alert, isAuthenticated]);
 
