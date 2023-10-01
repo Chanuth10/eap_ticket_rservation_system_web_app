@@ -1,13 +1,11 @@
 import "./home.css";
+import Navbar from "../features/navbar/Navbar";
 
 const Home = () => {
     return (
-        <div className="home">
-            sidebar
-            <div className="homeContainer">
-            navbar
-            </div>
-        </div>
+        <>
+         <Navbar/>
+        </>
     );
 }
 
