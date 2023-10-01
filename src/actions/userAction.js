@@ -13,15 +13,16 @@ import {
 } from "../constans/userContants";
 
 // Login
-export const login = (NIC, password) => async (dispatch) => {
+export const login = (NIC, Password) => async (dispatch) => {
+  console.log(NIC, Password);
   try {
     dispatch({ type: LOGIN_REQUEST });
 
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.post(
-      `/api/Authentication`,
-      { NIC, password },
+      `/api/v2/UserManagerAuth`,
+      { NIC, Password },
       config
     );
     dispatch({ type: LOGIN_SUCCESS, payload: data });
@@ -31,13 +32,13 @@ export const login = (NIC, password) => async (dispatch) => {
 };
 
 // Register
-export const register = (userData) => async (dispatch) => {
+export const register = (userName, nic, password, userType, email) => async (dispatch) => {
   try {
     dispatch({ type: REGISTER_USER_REQUEST });
 
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.post(`/api/v2/registration`, userData, config);
+    const { data } = await axios.post(`/api/v2/UserManager`, {userName, nic, password, userType, email}, config);
 
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data });
   } catch (error) {
