@@ -7,7 +7,6 @@ import loginImg from '../../../assets/images/login.png'
 import userIcon from '../../../assets/images/user.png'
 
 const Login = () => {
-
   return (
     <Container>
       <Row>
@@ -24,7 +23,7 @@ const Login = () => {
 
               <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Control type="NIC" placeholder="NIC" />
+                  <Form.Control type="NIC" placeholder="NIC"  />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                   <Form.Control type="password" placeholder="Password" />
