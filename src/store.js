@@ -5,8 +5,18 @@ import {
   userReducer,
 } from "./reducers/userReducer";
 
+import {
+  allTrainsReducer,
+  newTrainReducer,
+  updateTrainReducer
+} from "./reducers/TrainReducer";
+
 const reducer = combineReducers({
   user: userReducer,
+  
+  allTrains: allTrainsReducer,
+  newTrain: newTrainReducer,
+  updateTrain: updateTrainReducer
 });
 
 let initialState = {};
