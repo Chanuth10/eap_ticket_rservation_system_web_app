@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [travelerData, setTravelerData] = useState();
   const [trainData, setTrainData] = useState();
   const [userData, setUserData] = useState();
   const [reservationData, setReservationData] = useState();
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/v2/TravelarManager")
@@ -54,9 +56,11 @@ const Home = () => {
               fontWeight: "bold",
               fontSize: 20,
               justifyContent: "center",
+              cursor: "pointer",
               alignItems: "center",
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-            }}>
+            }}
+            onClick={() => navigate("/users")}>
             <p>Staff</p>
             <p>{userData ? userData.data.length : ""}</p>
           </Card>
@@ -79,9 +83,12 @@ const Home = () => {
               fontSize: 20,
               fontWeight: "bold",
               justifyContent: "center",
+
+              cursor: "pointer",
               alignItems: "center",
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-            }}>
+            }}
+            onClick={() => navigate("/travelers")}>
             <p>Travelers</p>
             <p>{travelerData ? travelerData.data.length : ""}</p>
           </Card>
@@ -113,9 +120,12 @@ const Home = () => {
               fontWeight: "bold",
               justifyContent: "center",
               alignItems: "center",
+
+              cursor: "pointer",
               marginTop: -56,
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-            }}>
+            }}
+            onClick={() => navigate("/reservations")}>
             <p>Reservations</p>
             <p>{reservationData ? reservationData.data.length : ""}</p>
           </Card>
@@ -139,9 +149,12 @@ const Home = () => {
               fontWeight: "bold",
               justifyContent: "center",
               alignItems: "center",
+
+              cursor: "pointer",
               marginTop: -56,
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-            }}>
+            }}
+            onClick={() => navigate("/train")}>
             <p>Trains</p>
             <p>{trainData ? trainData.data.length : ""}</p>
           </Card>

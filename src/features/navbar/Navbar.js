@@ -11,7 +11,7 @@ const nav__links = [
   },
   {
     path: "/users",
-    display: "Users",
+    display: "Staff",
   },
   {
     path: "/travelers",
