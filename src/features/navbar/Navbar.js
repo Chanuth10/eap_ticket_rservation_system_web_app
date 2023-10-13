@@ -1,62 +1,77 @@
-import React from 'react'
-import { Button, Container, Row } from 'react-bootstrap'
-import { NavLink, Link } from 'react-router-dom'
-import loginImg from '../../assets/images/logo.jpg'
+import React from "react";
+import { Container, Row } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import loginImg from "../../assets/images/logo.jpg";
 import "./navbar.css";
 
 const nav__links = [
   {
-    path: '/',
-    display: 'Home'
+    path: "/home",
+    display: "Home",
   },
   {
-    path: '/not',
-    display: 'About'
+    path: "/users",
+    display: "Users",
   },
   {
-    path: '/booking',
-    display: 'Booking'
+    path: "/travelers",
+    display: "Travelers",
   },
-]
-
+  {
+    path: "/reservations",
+    display: "Reservations",
+  },
+  {
+    path: "/train",
+    display: "Train",
+  },
+];
 const Navbar = () => {
+  const localUser = JSON.parse(localStorage.getItem("user"));
+  const filteredList =
+    localUser?.data?.userType !== "b-office"
+      ? nav__links.filter((item) => item.display !== "Train")
+      : nav__links;
+
+  console.log("filteredList", filteredList);
   return (
     <header className="header">
-      <Container>
-        <Row>
-          <div className="nav__wrapper d-flex align-items-center justify-content-between">
+      <Container className="container">
+        <Row className="row">
+          <div className="nav__wrapper">
             <div className="logo">
-              <img src={loginImg} alt='' ></img>
+              <img src={loginImg} alt="" />
             </div>
-
             <div className="navigation">
-              <ul className="menu d-flex align-items-center gap-5">
-                {
-                  nav__links.map((item, index) => (
-                    <li className='nav__item' key={index}>
-                      <NavLink to={item.path} className={navClass => navClass.isActive ? "active__link" : ""}>{item.display}</NavLink>
-                    </li>
-                  ))
-                }
+              <ul className="menu">
+                {filteredList.map((item, index) => (
+                  <li className="nav__item" key={index}>
+                    <NavLink
+                      to={item.path}
+                      className={(navClass) =>
+                        navClass.isActive ? "active__link" : ""
+                      }>
+                      {item.display}
+                    </NavLink>
+                  </li>
+                ))}
+                <li
+                  className="nav__item"
+                  style={{ fontWeight: "bold", cursor: "pointer" }}>
+                  <NavLink
+                    to={"/login"}
+                    onClick={() => localStorage.setItem("authenticated", null)}
+                    className={""}>
+                    Logout
+                  </NavLink>
+                </li>
               </ul>
-            </div>
-            <div className='nav__right d-flex align-items-center gap-4'>
-              <div className='nav__btns d-flex align-items-center gap-4'>
-                <Button className='btn secondary__btn'><Link to='/login'>Login</Link></Button>
-                <Button className='btn primary__btn'>
-                    <Link to='/signup'>SignUp</Link>
-                </Button>
-              </div>
-
-              <span className='mobile__menu'>
-                <i class='ri-menu-line'></i>
-              </span>
             </div>
           </div>
         </Row>
       </Container>
     </header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

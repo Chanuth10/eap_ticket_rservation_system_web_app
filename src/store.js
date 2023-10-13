@@ -1,22 +1,19 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import {
-  userReducer,
-} from "./reducers/userReducer";
+import { userReducer } from "./reducers/userReducer";
 
 import {
   allTrainsReducer,
   newTrainReducer,
-  updateTrainReducer
+  updateTrainReducer,
 } from "./reducers/TrainReducer";
 
 const reducer = combineReducers({
   user: userReducer,
-  
   allTrains: allTrainsReducer,
   newTrain: newTrainReducer,
-  updateTrain: updateTrainReducer
+  updateTrain: updateTrainReducer,
 });
 
 let initialState = {};
