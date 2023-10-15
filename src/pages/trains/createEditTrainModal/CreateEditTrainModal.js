@@ -34,7 +34,7 @@ export const CreateEditUserModal = ({
   };
   const handleOnSubmit = async () => {
     await axios
-      .post("http://localhost:5000/api/v2/Train", {
+      .post("http://localhost:5246/api/v2/Train", {
         id: key,
         trainName: name,
         isActive: true,
@@ -48,7 +48,7 @@ export const CreateEditUserModal = ({
 
   const handleOnUpdate = async () => {
     await axios
-      .put(`http://localhost:5000/api/v2/Train/${editUser.id}`, {
+      .put(`http://localhost:5246/api/v2/Train/${editUser.id}`, {
         id: editUser.id,
         trainName: name,
         isActive: true,

@@ -55,7 +55,7 @@ export const CreateEditUserModal = ({
   };
   const handleOnSubmit = async () => {
     await axios
-      .post("http://localhost:5000/api/v2/Reservations", {
+      .post("http://localhost:5246/api/v2/Reservations", {
         id: key,
         userId: travelerId,
         trainId: trainId,
@@ -73,7 +73,7 @@ export const CreateEditUserModal = ({
 
   const handleOnUpdate = async () => {
     await axios
-      .put(`http://localhost:5000/api/v2/Reservations/${editReservation.id}`, {
+      .put(`http://localhost:5246/api/v2/Reservations/${editReservation.id}`, {
         id: editReservation.id,
         userId: travelerId,
         trainId: trainId,

@@ -32,7 +32,7 @@ const Login = () => {
   }, [key]);
 
   const handleOnSubmit = async () => {
-    await axios.post("http://localhost:5000/api/v2/AdminManager", {
+    await axios.post("http://localhost:5246/api/v2/AdminManager", {
       id: key,
       userName: userName,
       nic: nic,
