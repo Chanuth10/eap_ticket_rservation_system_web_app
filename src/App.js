@@ -3,12 +3,15 @@ import "./App.css";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./pages/Layout";
 import Home from "./pages/Home";
-import BackOfficeHome from "./pages/BackOfficeHome";
 import UserProfilePage from "./pages/UserProfilePage";
 import PageNotFound from "./pages/404";
+import { UserContainer } from "./pages/users/UserContainer";
+import { TravelerContainer } from "./pages/travelers/TravelerContainer";
+import { ReservationContainer } from "./pages/reservation/ReservationContainer";
+import { TrainsContainer } from "./pages/trains/TrainsContainer";
 import Protected from "./features/auth/components/Protected";
-import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
 
 const router = createBrowserRouter([
   {
@@ -20,19 +23,21 @@ const router = createBrowserRouter([
     element: <SignupPage></SignupPage>,
   },
   {
-    path: "/",
+    path: "/error",
     element: (
-      <Protected>
-        <Home></Home>
-      </Protected>
+      <Layout>
+        <PageNotFound />
+      </Layout>
     ),
   },
   {
-    path: "/backOffice",
+    path: "/home",
     element: (
-      <ProtectedAdmin>
-        <BackOfficeHome></BackOfficeHome>
-      </ProtectedAdmin>
+      <Protected>
+        <Layout>
+          <Home></Home>
+        </Layout>
+      </Protected>
     ),
   },
   {
@@ -40,6 +45,46 @@ const router = createBrowserRouter([
     element: (
       <Protected>
         <UserProfilePage></UserProfilePage>
+      </Protected>
+    ),
+  },
+  {
+    path: "/users",
+    element: (
+      <Protected>
+        <Layout>
+          <UserContainer />
+        </Layout>
+      </Protected>
+    ),
+  },
+  {
+    path: "/travelers",
+    element: (
+      <Protected>
+        <Layout>
+          <TravelerContainer />
+        </Layout>
+      </Protected>
+    ),
+  },
+  {
+    path: "/reservations",
+    element: (
+      <Protected>
+        <Layout>
+          <ReservationContainer />
+        </Layout>
+      </Protected>
+    ),
+  },
+  {
+    path: "/train",
+    element: (
+      <Protected>
+        <Layout>
+          <TrainsContainer />
+        </Layout>
       </Protected>
     ),
   },

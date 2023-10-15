@@ -18,11 +18,13 @@ export const login = (NIC, Password) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_REQUEST });
 
-    const config = { headers: { "Content-Type": "application/json" } };
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
 
     const { data } = await axios.post(
-      `/api/v2/UserManagerAuth`,
-      { NIC, Password },
+      `http://localhost:5000/api/v2/admin/AuthAdmin`,
+      { nic: NIC, password: Password },
       config
     );
     dispatch({ type: LOGIN_SUCCESS, payload: data });
@@ -32,23 +34,27 @@ export const login = (NIC, Password) => async (dispatch) => {
 };
 
 // Register
-export const register = (userName, nic, password, userType, email) => async (dispatch) => {
-  try {
-    dispatch({ type: REGISTER_USER_REQUEST });
+export const register =
+  (userName, nic, password, userType, email) => async (dispatch) => {
+    try {
+      dispatch({ type: REGISTER_USER_REQUEST });
 
-    const config = { headers: { "Content-Type": "application/json" } };
+      const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.post(`/api/v2/UserManager`, {userName, nic, password, userType, email}, config);
+      const { data } = await axios.post(
+        `/api/v2/UserManager`,
+        { userName, nic, password, userType, email },
+        config
+      );
 
-    dispatch({ type: REGISTER_USER_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: REGISTER_USER_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
-
+      dispatch({ type: REGISTER_USER_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: REGISTER_USER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -57,18 +63,17 @@ export const loadUser = () => async (dispatch) => {
     // eslint-disable-next-line
     const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.get(
-      `/api/v2/me`);
+    const { data } = await axios.get(`/api/v2/me`);
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
   }
-}
+};
 
 //   Clearing errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({
-    type: CLEAR_ERRORS
-  })
-}
+    type: CLEAR_ERRORS,
+  });
+};
