@@ -44,25 +44,46 @@ export const Reservations = ({
                 <tr key={item.id}>
                   <td>
                     {trainData &&
-                      trainData.data.find((value) => value.id === item.trainId)
-                        .trainName}
+                    trainData.data.find((value) => value.id === item.trainId) &&
+                    trainData.data.find((value) => value.id === item.trainId)
+                      .trainName
+                      ? trainData.data.find(
+                          (value) => value.id === item.trainId
+                        ).trainName
+                      : ""}
                   </td>
                   <td>{moment(item.reservationDate).format("MMM Do YYYY")}</td>
                   <td>
                     {trainScheduleData &&
-                      trainScheduleData.data.find(
-                        (value) => value.id === item.trainScheduleId
-                      ).departureStation +
+                    trainScheduleData.data.find(
+                      (value) => value.id === item.trainScheduleId
+                    ) &&
+                    trainScheduleData.data.find(
+                      (value) => value.id === item.trainScheduleId
+                    ).departureStation &&
+                    trainScheduleData.data.find(
+                      (value) => value.id === item.trainScheduleId
+                    ).arrivalStation
+                      ? trainScheduleData.data.find(
+                          (value) => value.id === item.trainScheduleId
+                        ).departureStation +
                         " - " +
                         trainScheduleData.data.find(
                           (value) => value.id === item.trainScheduleId
-                        ).arrivalStation}
+                        ).arrivalStation
+                      : ""}
                   </td>
                   <td>
                     {travelerData &&
-                      travelerData.data.find(
-                        (value) => value.id === item.userId
-                      ).userName}
+                    travelerData.data.find(
+                      (value) => value.id === item.userId
+                    ) &&
+                    travelerData.data.find((value) => value.id === item.userId)
+                      .userName
+                      ? travelerData.data.find(
+                          (value) => value.id === item.userId
+                        ).userName
+                      : "-"}
                   </td>
                   <td onClick={() => setIsEditUser(item)}>
                     <svg
