@@ -9,15 +9,15 @@ export const TrainsContainer = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v2/Train")
+      .get("http://localhost:5246/api/v2/Train")
       .then((data) => setTrainData(data));
     axios
-      .get("http://localhost:5000/api/v2/TrainSchedule")
+      .get("http://localhost:5246/api/v2/TrainSchedule")
       .then((data) => setTrainScheduleData(data));
   }, [refetch]);
 
   const handleOnDeleteTrain = (id) => {
-    axios.delete(`http://localhost:5000/api/v2/Train/${id}`);
+    axios.delete(`http://localhost:5246/api/v2/Train/${id}`);
   };
 
   return (

@@ -52,7 +52,7 @@ export const CreateEditUserModal = ({
   };
   const handleOnSubmit = async () => {
     await axios
-      .post("http://localhost:5000/api/v2/TravelarManager", {
+      .post("http://localhost:5246/api/v2/TravelarManager", {
         id: key,
         userName: name,
         nic: nic,
@@ -68,7 +68,7 @@ export const CreateEditUserModal = ({
 
   const handleOnUpdate = async () => {
     await axios
-      .put(`http://localhost:5000/api/v2/TravelarManager/${editUser.nic}`, {
+      .put(`http://localhost:5246/api/v2/TravelarManager/${editUser.nic}`, {
         id: editUser.id,
         userName: name,
         nic: editUser.nic,
@@ -87,8 +87,8 @@ export const CreateEditUserModal = ({
       <Modal.Header closeButton>
         <Modal.Title>Add Traveler</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <Form>
+      <Form onSubmit={handleOnSubmit}>
+        <Modal.Body>
           <Form.Group
             as={Row}
             className="mb-3"
@@ -122,7 +122,7 @@ export const CreateEditUserModal = ({
             </Form.Label>
             <Col sm="10">
               <Form.Control
-                type="text"
+                type="email"
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -159,34 +159,35 @@ export const CreateEditUserModal = ({
               />
             </Col>
           </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleOnClose()}>
-          Close
-        </Button>
-        <Button
-          variant="primary"
-          onClick={() => handleOnSubmit()}
-          disabled={
-            !name ||
-            !email ||
-            !nic ||
-            !password ||
-            !confirmPassword ||
-            password !== confirmPassword
-          }>
-          Save Changes
-        </Button>
-      </Modal.Footer>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => handleOnClose()}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            type="submit"
+            // onClick={() => handleOnSubmit()}
+            disabled={
+              !name ||
+              !email ||
+              !nic ||
+              !password ||
+              !confirmPassword ||
+              password !== confirmPassword
+            }>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   ) : (
     <Modal show={isOpen} onHide={() => handleOnClose()}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Traveler</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <Form>
+      <Form onSubmit={handleOnUpdate}>
+        <Modal.Body>
           <Form.Group
             as={Row}
             className="mb-3"
@@ -209,7 +210,7 @@ export const CreateEditUserModal = ({
             </Form.Label>
             <Col sm="10">
               <Form.Control
-                type="text"
+                type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -247,26 +248,27 @@ export const CreateEditUserModal = ({
               />
             </Col>
           </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleOnClose()}>
-          Close
-        </Button>
-        <Button
-          variant="primary"
-          onClick={() => handleOnUpdate()}
-          disabled={
-            !name ||
-            !email ||
-            !nic ||
-            !password ||
-            !confirmPassword ||
-            password !== confirmPassword
-          }>
-          Edit Changes
-        </Button>
-      </Modal.Footer>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => handleOnClose()}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            type="submit"
+            // onClick={() => handleOnUpdate()}
+            disabled={
+              !name ||
+              !email ||
+              !nic ||
+              !password ||
+              !confirmPassword ||
+              password !== confirmPassword
+            }>
+            Edit Changes
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   );
 };

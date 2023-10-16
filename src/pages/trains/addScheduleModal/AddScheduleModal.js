@@ -27,7 +27,7 @@ export const AddScheduleModal = ({
   };
   const handleOnSubmit = async () => {
     await axios
-      .post("http://localhost:5000/api/v2/Schedule", {
+      .post("http://localhost:5246/api/v2/Schedule", {
         id: key,
         trainName: name,
         isActive: true,
@@ -41,7 +41,7 @@ export const AddScheduleModal = ({
 
   const handleOnUpdate = async () => {
     await axios
-      .put(`http://localhost:5000/api/v2/Schedule/${editUser.id}`, {
+      .put(`http://localhost:5246/api/v2/Schedule/${editUser.id}`, {
         id: editUser.id,
         trainName: name,
         isActive: true,

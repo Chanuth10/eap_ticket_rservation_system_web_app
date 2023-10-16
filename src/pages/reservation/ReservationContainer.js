@@ -12,12 +12,12 @@ export const ReservationContainer = () => {
   useEffect(() => {
     if (!reservationData) {
       axios
-        .get("http://localhost:5000/api/v2/Reservations")
+        .get("http://localhost:5246/api/v2/Reservations")
         .then((data) => setReservationData(data));
     }
     if (!trainData) {
       axios
-        .get("http://localhost:5000/api/v2/Train")
+        .get("http://localhost:5246/api/v2/Train")
         .then((data) => setTrainData(data));
     }
     setRefetch(false);
@@ -26,13 +26,13 @@ export const ReservationContainer = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v2/TravelarManager")
+      .get("http://localhost:5246/api/v2/TravelarManager")
       .then((data) => setTravelerData(data));
     axios
-      .get("http://localhost:5000/api/v2/Train")
+      .get("http://localhost:5246/api/v2/Train")
       .then((data) => setTrainData(data));
     axios
-      .get("http://localhost:5000/api/v2/TrainSchedule")
+      .get("http://localhost:5246/api/v2/TrainSchedule")
       .then((data) => setTrainScheduleData(data));
   }, []);
 
@@ -49,7 +49,7 @@ export const ReservationContainer = () => {
 
   const handleOnDeleteReservation = (id) => {
     axios
-      .delete(`http://localhost:5000/api/v2/Reservations/${id}`)
+      .delete(`http://localhost:5246/api/v2/Reservations/${id}`)
       .then(() => setRefetch(true));
   };
 

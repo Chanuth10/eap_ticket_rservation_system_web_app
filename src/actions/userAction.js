@@ -23,7 +23,7 @@ export const login = (NIC, Password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `http://localhost:5000/api/v2/admin/AuthAdmin`,
+      `http://localhost:5246/api/v2/admin/AuthAdmin`,
       { nic: NIC, password: Password },
       config
     );

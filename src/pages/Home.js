@@ -9,18 +9,19 @@ const Home = () => {
   const [userData, setUserData] = useState();
   const [reservationData, setReservationData] = useState();
   const navigate = useNavigate();
+  const localUser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v2/TravelarManager")
+      .get("http://localhost:5246/api/v2/TravelarManager")
       .then((data) => setTravelerData(data));
     axios
-      .get("http://localhost:5000/api/v2/AdminManager")
+      .get("http://localhost:5246/api/v2/AdminManager")
       .then((data) => setUserData(data));
     axios
-      .get("http://localhost:5000/api/v2/Train")
+      .get("http://localhost:5246/api/v2/Train")
       .then((data) => setTrainData(data));
     axios
-      .get("http://localhost:5000/api/v2/Reservations")
+      .get("http://localhost:5246/api/v2/Reservations")
       .then((data) => setReservationData(data));
   }, []);
   return (
@@ -138,26 +139,28 @@ const Home = () => {
             alignItems: "center",
             justifyContent: "center",
           }}>
-          <Card
-            style={{
-              width: "65%",
-              height: "50%",
-              fontSize: 20,
-              display: "flex",
-              flexDirection: "column",
-              gap: 4,
-              fontWeight: "bold",
-              justifyContent: "center",
-              alignItems: "center",
+          {localUser?.data?.userType === "b-office" ? (
+            <Card
+              style={{
+                width: "65%",
+                height: "50%",
+                fontSize: 20,
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+                fontWeight: "bold",
+                justifyContent: "center",
+                alignItems: "center",
 
-              cursor: "pointer",
-              marginTop: -56,
-              boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-            }}
-            onClick={() => navigate("/train")}>
-            <p>Trains</p>
-            <p>{trainData ? trainData.data.length : ""}</p>
-          </Card>
+                cursor: "pointer",
+                marginTop: -56,
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+              }}
+              onClick={() => navigate("/train")}>
+              <p>Trains</p>
+              <p>{trainData ? trainData.data.length : ""}</p>
+            </Card>
+          ) : null}
         </div>
       </div>
     </div>

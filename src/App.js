@@ -2,7 +2,11 @@ import React from "react";
 import "./App.css";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import UserProfilePage from "./pages/UserProfilePage";
@@ -13,7 +17,7 @@ import { ReservationContainer } from "./pages/reservation/ReservationContainer";
 import { TrainsContainer } from "./pages/trains/TrainsContainer";
 import Protected from "./features/auth/components/Protected";
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: "/login",
     element: <LoginPage></LoginPage>,
@@ -92,7 +96,15 @@ const router = createBrowserRouter([
     path: "*",
     element: <LoginPage></LoginPage>,
   },
-]);
+];
+const localUser = JSON.parse(localStorage.getItem("user"));
+
+// const filterRouter =
+//   localUser?.data?.userType !== "b-office"
+//     ? routes.filter((item) => item.path !== "/train")
+//     : routes;
+
+const router = createBrowserRouter(routes);
 
 function App() {
   return (
