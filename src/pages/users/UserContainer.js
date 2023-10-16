@@ -13,6 +13,7 @@ export const UserContainer = () => {
 
   const handleOnDeleteUser = (id) => {
     axios.delete(`http://localhost:5246/api/v2/AdminManager/${id}`);
+    window. location. reload();
   };
 
   return (
