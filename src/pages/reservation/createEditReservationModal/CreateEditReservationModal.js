@@ -22,14 +22,6 @@ export const CreateEditUserModal = ({
   const [email, setEmail] = useState("");
   const [key, setKey] = useState("");
 
-  console.log("train", trainData?.data);
-  console?.log("travelerData", travelerData?.data);
-  console.log("trainScheduleData", trainScheduleData?.data);
-
-  useEffect(() => {
-    console.log("scheduleDate", scheduleDate);
-  }, [scheduleDate]);
-
   useEffect(() => {
     if (!key) {
       setKey(KeyGenerator());
@@ -39,8 +31,14 @@ export const CreateEditUserModal = ({
   useEffect(() => {
     if (type === "edit") {
       setTrainID(editReservation.trainId);
-      setTravelerId(editReservation.travelerId);
-      setTrainScheduleID(editReservation.trainScheduleID);
+      setTravelerId(editReservation.userId);
+      setTrainScheduleID(editReservation.trainScheduleId);
+      SetScheduleDate(
+        editReservation.reservationDate &&
+          editReservation.reservationDate.replace(":00Z", "")
+      );
+      setPrice(editReservation.price);
+      setEmail(editReservation.email);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -66,7 +64,7 @@ export const CreateEditUserModal = ({
         email: email,
       })
       .then(() => {
-        setRefetch && setRefetch((prev) => !prev);
+        setRefetch((prev) => !prev);
         handleOnClose();
       });
   };
@@ -84,8 +82,11 @@ export const CreateEditUserModal = ({
         email: email,
       })
       .then(() => {
-        setRefetch && setRefetch((prev) => !prev);
+        setRefetch((prev) => !prev);
         handleOnClose();
+      })
+      .catch(() => {
+        alert("Cannot update reservation!");
       });
   };
 
@@ -94,8 +95,8 @@ export const CreateEditUserModal = ({
       <Modal.Header closeButton>
         <Modal.Title>Add Reservation</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <Form>
+      <Form onSubmit={handleOnSubmit}>
+        <Modal.Body>
           <Form.Group
             as={Row}
             className="mb-3"
@@ -173,7 +174,7 @@ export const CreateEditUserModal = ({
             </Form.Label>
             <Col sm="10">
               <Form.Control
-                type="text"
+                type="number"
                 placeholder="Price"
                 onChange={(e) => setPrice(e.target.value)}
               />
@@ -187,7 +188,7 @@ export const CreateEditUserModal = ({
               <input
                 type="datetime-local"
                 onChange={(e) => SetScheduleDate(e.target.value)}
-                min={moment(new Date()).format("DD-MM-YYYY[T]hh:mm a")}
+                min={new Date().toISOString()}
               />
             </Col>
           </Form.Group>
@@ -200,40 +201,41 @@ export const CreateEditUserModal = ({
             </Form.Label>
             <Col sm="10">
               <Form.Control
-                type="text"
+                type="email"
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Col>
           </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleOnClose()}>
-          Close
-        </Button>
-        <Button
-          variant="primary"
-          onClick={() => handleOnSubmit()}
-          disabled={
-            !travelerId ||
-            !trainId ||
-            !trainScheduleID ||
-            !scheduleDate ||
-            !price ||
-            !email
-          }>
-          Save Changes
-        </Button>
-      </Modal.Footer>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => handleOnClose()}>
+            Close
+          </Button>
+          <Button
+            type="submit"
+            variant="primary"
+            // onClick={() => handleOnSubmit()}
+            disabled={
+              !travelerId ||
+              !trainId ||
+              !trainScheduleID ||
+              !scheduleDate ||
+              !price ||
+              !email
+            }>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   ) : (
     <Modal show={isOpen} onHide={() => handleOnClose()}>
       <Modal.Header closeButton>
         <Modal.Title>Edit User</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <Form>
+      <Form onSubmit={handleOnUpdate}>
+        <Modal.Body>
           <Form.Group
             as={Row}
             className="mb-3"
@@ -243,7 +245,7 @@ export const CreateEditUserModal = ({
             </Form.Label>
             <Col sm="10">
               <select
-                name="organization"
+                name="travelerID"
                 value={travelerId}
                 onChange={(event) => {
                   setTravelerId(event.target.value);
@@ -266,7 +268,7 @@ export const CreateEditUserModal = ({
             </Form.Label>
             <Col sm="10">
               <select
-                name="organization"
+                name="trainID"
                 value={trainId}
                 onChange={(event) => {
                   setTrainID(event.target.value);
@@ -286,7 +288,7 @@ export const CreateEditUserModal = ({
             </Form.Label>
             <Col sm="10">
               <select
-                name="organization"
+                name="scheduleID"
                 value={trainScheduleID}
                 onChange={(event) => {
                   setTrainScheduleID(event.target.value);
@@ -314,7 +316,8 @@ export const CreateEditUserModal = ({
             </Form.Label>
             <Col sm="10">
               <Form.Control
-                type="text"
+                type="number"
+                value={price}
                 placeholder="Price"
                 onChange={(e) => setPrice(e.target.value)}
               />
@@ -327,6 +330,7 @@ export const CreateEditUserModal = ({
             <Col sm="10">
               <input
                 type="datetime-local"
+                value={scheduleDate}
                 onChange={(e) => SetScheduleDate(e.target.value)}
                 min={moment(new Date()).format("DD-MM-YYYY[T]hh:mm a")}
               />
@@ -341,32 +345,34 @@ export const CreateEditUserModal = ({
             </Form.Label>
             <Col sm="10">
               <Form.Control
-                type="text"
+                type="email"
+                value={email}
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Col>
           </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleOnClose()}>
-          Close
-        </Button>
-        <Button
-          variant="primary"
-          onClick={() => handleOnUpdate()}
-          disabled={
-            !travelerId ||
-            !trainId ||
-            !trainScheduleID ||
-            !scheduleDate ||
-            !price ||
-            !email
-          }>
-          Edit Changes
-        </Button>
-      </Modal.Footer>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => handleOnClose()}>
+            Close
+          </Button>
+          <Button
+            type="submit"
+            variant="primary"
+            // onClick={() => handleOnUpdate()}
+            disabled={
+              !travelerId ||
+              !trainId ||
+              !trainScheduleID ||
+              !scheduleDate ||
+              !price ||
+              !email
+            }>
+            Edit Changes
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   );
 };

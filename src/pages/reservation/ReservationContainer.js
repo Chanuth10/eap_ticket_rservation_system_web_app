@@ -10,12 +10,13 @@ export const ReservationContainer = () => {
   const [refetch, setRefetch] = useState(false);
   const [travelerData, setTravelerData] = useState();
   useEffect(() => {
-    if (!reservationData) {
+    if (refetch) {
       axios
         .get("http://localhost:5246/api/v2/Reservations")
         .then((data) => setReservationData(data));
-    }
-    if (!trainData) {
+      axios
+        .get("http://localhost:5246/api/v2/TrainSchedule")
+        .then((data) => setTrainScheduleData(data));
       axios
         .get("http://localhost:5246/api/v2/Train")
         .then((data) => setTrainData(data));
@@ -25,6 +26,9 @@ export const ReservationContainer = () => {
   }, [refetch]);
 
   useEffect(() => {
+    axios
+      .get("http://localhost:5246/api/v2/Reservations")
+      .then((data) => setReservationData(data));
     axios
       .get("http://localhost:5246/api/v2/TravelarManager")
       .then((data) => setTravelerData(data));
@@ -50,7 +54,10 @@ export const ReservationContainer = () => {
   const handleOnDeleteReservation = (id) => {
     axios
       .delete(`http://localhost:5246/api/v2/Reservations/${id}`)
-      .then(() => setRefetch(true));
+      .then(() => setRefetch(true))
+      .catch(() => {
+        alert("Cannot deactivate Reservation!");
+      });
   };
 
   return (
