@@ -12,7 +12,7 @@ import userIcon from "../../../assets/images/user.png";
 import { KeyGenerator } from "../../keyGen/KeyGen";
 import axios from "axios";
 
-const Login = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -146,4 +146,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
