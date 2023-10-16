@@ -4,7 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import {
   createBrowserRouter,
-  Navigate,
+  // Navigate,
   RouterProvider,
 } from "react-router-dom";
 import Layout from "./pages/Layout";
@@ -97,7 +97,7 @@ const routes = [
     element: <LoginPage></LoginPage>,
   },
 ];
-const localUser = JSON.parse(localStorage.getItem("user"));
+// const localUser = JSON.parse(localStorage.getItem("user"));
 
 // const filterRouter =
 //   localUser?.data?.userType !== "b-office"

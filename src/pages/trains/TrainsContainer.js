@@ -6,7 +6,6 @@ export const TrainsContainer = () => {
   const [trainData, setTrainData] = useState();
   const [refetch, setRefetch] = useState(false);
   const [trainScheduleData, setTrainScheduleData] = useState();
-
   useEffect(() => {
     axios
       .get("http://localhost:5246/api/v2/Train")
@@ -14,10 +13,36 @@ export const TrainsContainer = () => {
     axios
       .get("http://localhost:5246/api/v2/TrainSchedule")
       .then((data) => setTrainScheduleData(data));
+  }, []);
+
+  useEffect(() => {
+    if (refetch) {
+      axios
+        .get("http://localhost:5246/api/v2/Train")
+        .then((data) => setTrainData(data));
+      axios
+        .get("http://localhost:5246/api/v2/TrainSchedule")
+        .then((data) => setTrainScheduleData(data));
+    }
+    setRefetch(false);
   }, [refetch]);
 
   const handleOnDeleteTrain = (id) => {
-    axios.delete(`http://localhost:5246/api/v2/Train/${id}`);
+    axios.delete(`http://localhost:5246/api/v2/Train/${id}`).catch((err) => {
+      if (err.response.status !== 500) {
+        alert("Cannot delete scheduled train!");
+      } else {
+        setRefetch(true);
+      }
+    });
+  };
+  //TrainSchedule
+  const handleOnDeleteTrainSchedule = (id) => {
+    axios
+      .delete(`http://localhost:5246/api/v2/TrainSchedule/${id}`)
+      .then(() => {
+        setRefetch(true);
+      });
   };
 
   return (
@@ -26,6 +51,7 @@ export const TrainsContainer = () => {
         trainData={trainData}
         setRefetch={setRefetch}
         handleOnDeleteTrain={handleOnDeleteTrain}
+        handleOnDeleteTrainSchedule={handleOnDeleteTrainSchedule}
         trainScheduleData={trainScheduleData}
       />
     </>
