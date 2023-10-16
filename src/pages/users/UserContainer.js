@@ -7,12 +7,12 @@ export const UserContainer = () => {
   const [refetch, setRefetch] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v2/AdminManager")
+      .get("http://localhost:5246/api/v2/AdminManager")
       .then((data) => setUserData(data));
   }, [refetch]);
 
   const handleOnDeleteUser = (id) => {
-    axios.delete(`http://localhost:5000/api/v2/AdminManager/${id}`);
+    axios.delete(`http://localhost:5246/api/v2/AdminManager/${id}`);
   };
 
   return (

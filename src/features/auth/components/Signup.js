@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, register } from "../../../actions/userAction";
+import { clearErrors } from "../../../actions/userAction";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./login.css";
 
 import registerImg from "../../../assets/images/register.png";
 import userIcon from "../../../assets/images/user.png";
+import { KeyGenerator } from "../../keyGen/KeyGen";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,10 +23,29 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState("");
   const [email, setEmail] = useState("");
+  const [key, setKey] = useState("");
+
+  useEffect(() => {
+    if (!key) {
+      setKey(KeyGenerator());
+    }
+  }, [key]);
+
+  const handleOnSubmit = async () => {
+    await axios.post("http://localhost:5246/api/v2/AdminManager", {
+      id: key,
+      userName: userName,
+      nic: nic,
+      password: password,
+      userType: userType,
+      email: email,
+    });
+  };
 
   const Submit = (e) => {
     e.preventDefault();
-    dispatch(register(userName, nic, password, userType, email));
+    handleOnSubmit();
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -97,14 +118,20 @@ const Login = () => {
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlTextarea1">
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter user type"
-                    value={userType}
-                    onChange={(e) => setUserType(e.target.value)}
-                  />
+                  <Col sm="10">
+                    <Form.Select onChange={(e) => setUserType(e.target.value)}>
+                      <option>Select User Type</option>
+                      <option value="t-manager">Travel Manager</option>
+                      <option value="b-office">Back office worker</option>
+                    </Form.Select>
+                  </Col>
                 </Form.Group>
-                <Button className="btn secondary__btn auth__btn" type="submit">
+                <Button
+                  className="btn secondary__btn auth__btn"
+                  type="submit"
+                  disabled={
+                    !userName || !nic || !password || !userType || !email
+                  }>
                   SignUp
                 </Button>
               </Form>

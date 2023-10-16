@@ -52,7 +52,7 @@ export const CreateEditUserModal = ({
   };
   const handleOnSubmit = async () => {
     await axios
-      .post("http://localhost:5000/api/v2/TravelarManager", {
+      .post("http://localhost:5246/api/v2/TravelarManager", {
         id: key,
         userName: name,
         nic: nic,
@@ -68,7 +68,7 @@ export const CreateEditUserModal = ({
 
   const handleOnUpdate = async () => {
     await axios
-      .put(`http://localhost:5000/api/v2/TravelarManager/${editUser.nic}`, {
+      .put(`http://localhost:5246/api/v2/TravelarManager/${editUser.nic}`, {
         id: editUser.id,
         userName: name,
         nic: editUser.nic,

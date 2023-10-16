@@ -13,7 +13,7 @@ import { ReservationContainer } from "./pages/reservation/ReservationContainer";
 import { TrainsContainer } from "./pages/trains/TrainsContainer";
 import Protected from "./features/auth/components/Protected";
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: "/login",
     element: <LoginPage></LoginPage>,
@@ -90,9 +90,17 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <PageNotFound></PageNotFound>,
+    element: <LoginPage></LoginPage>,
   },
-]);
+];
+const localUser = JSON.parse(localStorage.getItem("user"));
+
+const filterRouter =
+  localUser?.data?.userType !== "b-office"
+    ? routes.filter((item) => item.path !== "/train")
+    : routes;
+
+const router = createBrowserRouter(filterRouter);
 
 function App() {
   return (

@@ -29,7 +29,7 @@ const Login = (props) => {
     };
     await axios
       .post(
-        `http://localhost:5000/api/v2/admin/AuthAdmin`,
+        `http://localhost:5246/api/v2/admin/AuthAdmin`,
         { nic: loginNIC, password: loginPassword },
         config
       )

@@ -9,7 +9,7 @@ export const TravelerContainer = () => {
   useEffect(() => {
     if (refetch) {
       axios
-        .get("http://localhost:5000/api/v2/TravelarManager")
+        .get("http://localhost:5246/api/v2/TravelarManager")
         .then((data) => setTravelerData(data));
     }
     setRefetch(false);
@@ -17,13 +17,13 @@ export const TravelerContainer = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v2/TravelarManager")
+      .get("http://localhost:5246/api/v2/TravelarManager")
       .then((data) => setTravelerData(data));
   }, []);
 
   const handleOnDeleteTraveler = (nic) => {
     axios
-      .delete(`http://localhost:5000/api/v2/TravelarManager/${nic}`)
+      .delete(`http://localhost:5246/api/v2/TravelarManager/${nic}`)
       .then(() => setRefetch(true));
   };
   const localUser = JSON.parse(localStorage.getItem("user"));
@@ -42,7 +42,7 @@ export const TravelerContainer = () => {
 
       axios
         .put(
-          `http://localhost:5000/api/v2/TravelarManager/updateTravelarStatus/${user.id}`,
+          `http://localhost:5246/api/v2/TravelarManager/updateTravelarStatus/${user.id}`,
           object
         )
         .then(() => setRefetch(true));

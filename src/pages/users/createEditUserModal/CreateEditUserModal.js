@@ -44,7 +44,7 @@ export const CreateEditUserModal = ({
   };
   const handleOnSubmit = async () => {
     await axios
-      .post("http://localhost:5000/api/v2/AdminManager", {
+      .post("http://localhost:5246/api/v2/AdminManager", {
         id: key,
         userName: name,
         nic: nic,
@@ -60,7 +60,7 @@ export const CreateEditUserModal = ({
 
   const handleOnUpdate = async () => {
     await axios
-      .put(`http://localhost:5000/api/v2/AdminManager/${editUser.id}`, {
+      .put(`http://localhost:5246/api/v2/AdminManager/${editUser.id}`, {
         id: editUser.id,
         userName: name,
         nic: nic,
