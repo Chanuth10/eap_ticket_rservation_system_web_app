@@ -66,6 +66,8 @@ export const CreateEditUserModal = ({
       .then(() => {
         setRefetch((prev) => !prev);
         handleOnClose();
+      }).catch(() => {
+        alert("Maximum 4 reservations allowed your acount.");
       });
   };
 
@@ -86,7 +88,7 @@ export const CreateEditUserModal = ({
         handleOnClose();
       })
       .catch(() => {
-        alert("Cannot update reservation!");
+        alert("Reservation cannot be updated less than 5 days before the reservation date.");
       });
   };
 
@@ -377,11 +379,4 @@ export const CreateEditUserModal = ({
   );
 };
 
-// {
-//   "id": "string",
-//   "userName": "string",
-//   "nic": "string",
-//   "password": "string",
-//   "userType": "string",
-//   "email": "string"
-// }
+

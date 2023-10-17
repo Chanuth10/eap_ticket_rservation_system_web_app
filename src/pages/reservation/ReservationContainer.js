@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Reservations } from "./Reservation";
 
+
 export const ReservationContainer = () => {
   const [reservationData, setReservationData] = useState();
   const [trainData, setTrainData] = useState();
@@ -56,7 +57,7 @@ export const ReservationContainer = () => {
       .delete(`http://localhost:5246/api/v2/Reservations/${id}`)
       .then(() => setRefetch(true))
       .catch(() => {
-        alert("Cannot deactivate Reservation!");
+        alert("Reservation cannot be deleted less than 5 days before the reservation date.");
       });
   };
 
