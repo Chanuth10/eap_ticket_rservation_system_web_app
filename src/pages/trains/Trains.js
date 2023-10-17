@@ -3,6 +3,7 @@ import { Button, Table } from "react-bootstrap";
 import { CreateEditUserModal } from "./createEditTrainModal/CreateEditTrainModal";
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import { AddScheduleModal } from "./addScheduleModal/AddScheduleModal";
+import { useNavigate } from "react-router-dom";
 
 export const Trains = ({
   trainData,
@@ -17,6 +18,13 @@ export const Trains = ({
   const [isEditSchedule, setIsEditSchedule] = useState();
   const [isDeleteUser, setIsDeleteUser] = useState();
   const [isDeleteSchedule, setIsDeleteSchedule] = useState();
+  const navigate = useNavigate();
+  const localUser = JSON.parse(localStorage.getItem("user"));
+
+  if (localUser?.data?.userType !== "b-office") {
+    return navigate("/home");
+  }
+
   return (
     <div style={{ padding: 16 }}>
       <div
